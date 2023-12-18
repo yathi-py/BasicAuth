@@ -11,6 +11,15 @@ def index(request):
 
 
 def register(request):
+    """
+    Handle user registration.
+
+    Parameters:
+    - request (HttpRequest): The HTTP request object.
+
+    Returns:
+    - HttpResponse: Rendered registration page or redirect to home page on successful registration.
+    """
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
@@ -21,5 +30,6 @@ def register(request):
             login(request, user)
             return redirect('authapp:home')
     else:
+        # Display an empty registration form for GET requests
         form = UserCreationForm()
     return render(request, 'registration/register.html', {'form': form})
